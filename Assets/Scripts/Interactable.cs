@@ -7,7 +7,7 @@
 
 using UnityEngine;
 
-[RequireComponent(typeof(Collider))]
+[RequireComponent(typeof(Collider2D))]
 public abstract class Interactable : MonoBehaviour
 {
     [SerializeField]
@@ -64,6 +64,8 @@ public abstract class Interactable : MonoBehaviour
     public virtual void Interact() { }
 
     protected virtual void EndInteraction() { }
+
+    public virtual string GetInteractPrompt() { return Label; }
 }
 
 
