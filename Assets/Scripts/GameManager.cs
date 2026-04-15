@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using NUnit.Framework;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,6 +29,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     TextMeshProUGUI infoText;
 
+    Dictionary<string, int> inventory = new Dictionary<string, int>();
+
     private void Start()
     {
         if(instance == null)
@@ -51,5 +55,27 @@ public class GameManager : MonoBehaviour
     {
         infoCanvas.SetActive(false);
         infoText.text = "";
+    }
+
+    public void AddItemToInventory(string itemName, int quantity)
+    {
+        if (inventory.ContainsKey(itemName) == false)
+        {
+            inventory.Add(itemName, quantity);
+        }
+        else
+        {
+            inventory[itemName] += quantity;
+        }
+        PrintInventory();
+    }
+
+    void PrintInventory()
+    {
+        foreach (string item in inventory.Keys)
+        {
+            Debug.LogFormat("{0}: {1}", item, inventory[item]);
+            Debug.Log(item + ": " +  inventory[item].ToString());
+        }
     }
 }
