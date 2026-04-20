@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using NUnit.Framework;
 using System.Collections.Generic;
+using UnityEngine.Tilemaps;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,6 +20,14 @@ public class GameManager : MonoBehaviour
             return instance;
         }
     }
+
+    [SerializeField]
+    Tilemap groundTilemap;
+    public Tilemap GroundTilemap { get { return groundTilemap; } }
+    
+    [SerializeField]
+    Tilemap obstacleTilemap;
+    public Tilemap ObstacleTilemap { get { return obstacleTilemap; } }
 
     [SerializeField]
     GameObject infoCanvas;
