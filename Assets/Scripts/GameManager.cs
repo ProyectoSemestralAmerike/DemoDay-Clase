@@ -4,6 +4,7 @@ using TMPro;
 using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine.Tilemaps;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -39,6 +40,10 @@ public class GameManager : MonoBehaviour
     TextMeshProUGUI infoText;
 
     Dictionary<string, int> inventory = new Dictionary<string, int>();
+
+    public static event Action<bool> OnWorldChanged;
+
+    bool worldIsDisturbed = false;
 
     private void Start()
     {
@@ -85,6 +90,16 @@ public class GameManager : MonoBehaviour
         {
             Debug.LogFormat("{0}: {1}", item, inventory[item]);
             Debug.Log(item + ": " +  inventory[item].ToString());
+        }
+    }
+
+    public void PillWasTaken()
+    {
+        worldIsDisturbed = true;
+        if (worldIsDisturbed)
+        {
+            Debug.Log("Firing World Changed Event");
+            OnWorldChanged?.Invoke(worldIsDisturbed);
         }
     }
 }

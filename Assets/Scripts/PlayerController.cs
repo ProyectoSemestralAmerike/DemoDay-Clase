@@ -7,6 +7,8 @@ public class PlayerController : MonoBehaviour
     int lifePoints = 50;
     InputAction moveAction;
 
+    InputAction takePillAction;
+
     [SerializeField]
     float movementSpeed = 2f;
 
@@ -14,6 +16,9 @@ public class PlayerController : MonoBehaviour
     {
         moveAction = InputSystem.actions.FindAction("Move");
         moveAction.performed += Move;
+
+        takePillAction = InputSystem.actions.FindAction("Attack");
+        takePillAction.performed += TakePill;
     }
 
     void Move(InputAction.CallbackContext ctx)
@@ -37,5 +42,10 @@ public class PlayerController : MonoBehaviour
         }
 
         return false;
+    }
+
+    void TakePill(InputAction.CallbackContext ctx)
+    {
+        GameManager.Instance.PillWasTaken();
     }
 }
