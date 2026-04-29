@@ -45,12 +45,14 @@ public class GameManager : MonoBehaviour
 
     bool worldIsDisturbed = false;
 
-    private void Start()
+    private void Awake()
     {
         if(instance == null)
         {
             instance = this;
             infoCanvas.SetActive(false);
+            LoadInventory();
+            DontDestroyOnLoad(this.gameObject);
         }
         else
         {
@@ -89,7 +91,6 @@ public class GameManager : MonoBehaviour
         foreach (string item in inventory.Keys)
         {
             Debug.LogFormat("{0}: {1}", item, inventory[item]);
-            Debug.Log(item + ": " +  inventory[item].ToString());
         }
     }
 
@@ -101,5 +102,22 @@ public class GameManager : MonoBehaviour
             Debug.Log("Firing World Changed Event");
             OnWorldChanged?.Invoke(worldIsDisturbed);
         }
+    }
+
+    public void LoadInventory()
+    {
+        inventory = SaveManager.Instance.LoadInventory();
+        Debug.Log("Inventory loaded. Inventory: ");
+        PrintInventory();
+    }
+
+    public void SaveInventory()
+    {
+        SaveManager.Instance.SaveData(inventory);
+    }
+
+    public void DebugAddItemToInventory(string itemToAdd)
+    {
+        AddItemToInventory(itemToAdd, 1);
     }
 }
