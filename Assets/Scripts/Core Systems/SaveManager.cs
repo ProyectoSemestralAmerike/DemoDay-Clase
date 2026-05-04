@@ -56,7 +56,6 @@ public class SaveManager : MonoBehaviour
                 writer.WriteLine(saveString);
                 writer.Flush();
                 writer.Close();
-
             }
         }
         catch (System.Exception e)
@@ -105,7 +104,6 @@ public class SaveManager : MonoBehaviour
 
                 loadedInventory.Add(loadedItem[0], Int32.Parse(loadedItem[1]));
             }
-
         }
         return loadedInventory;
     }

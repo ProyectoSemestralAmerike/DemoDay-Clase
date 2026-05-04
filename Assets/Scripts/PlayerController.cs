@@ -24,6 +24,10 @@ public class PlayerController : MonoBehaviour
     void Move(InputAction.CallbackContext ctx)
     {
         Vector2 moveDirection = ctx.ReadValue<Vector2>();
+        if (moveDirection.x != 0 && moveDirection.y != 0)
+        {
+            return;
+        }
 
         if (CanMove(moveDirection))
         {
